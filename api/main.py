@@ -1,3 +1,4 @@
+"""Module providingFunction printing python version."""
 import os
 import requests
 from flask import Flask, request
@@ -23,13 +24,16 @@ app.config["DEBUG"] = DEBUG
 
 @app.route("/new-image")
 def new_image():
+    """Return new image."""
     word = request.args.get("query")
     headers = {
         "Accept-Version": "v1",
         "Authorization": "Client-ID " + UNSPLASH_KEY
     }
     params = {"query": word}
-    response = requests.get(url=UNSPLASH_URL, headers=headers, params=params)
+    response = requests.get(
+        url=UNSPLASH_URL, headers=headers, params=params, timeout=100
+    )
     data = response.json()
     return data
 
